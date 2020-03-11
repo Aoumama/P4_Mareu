@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.meeting.AddMeetingActivity">
+
+    <LinearLayout
+        android:id="@+id/activity_meeting_add_llreturn"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+        <ImageView
+            android:id="@+id/activity_meeting_add_return"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_arrow_left"
+            android:layout_marginTop="50dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/activity_meeting_add_llcircle"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/activity_meeting_add_llreturn">
+
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/activity_meeting_add_circleColor"
+            android:src="@drawable/circle"
+            android:backgroundTintMode="@color/colorGrey"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/activity_meeting_add_llparticipant"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginBottom="571dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/activity_meeting_add_llcircle">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/activity_meeting_add_lytparticipant"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/activity_meeting_add_edtmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Liste des participants"
+                android:inputType="textPersonName" />
+        </com.google.android.material.textfield.TextInputLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/activity_meeting_add_llsubject"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/activity_meeting_add_llparticipant">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/activity_meeting_add_lytsubject"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/activity_meeting_add_edtsubject"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Sujet de la réunion" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/activity_meeting_add_llplace"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/activity_meeting_add_llsubject">
+        <androidx.appcompat.widget.AppCompatSpinner
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/activity_meeting_add_spinnerromm"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/activity_meeting_add_lldatetime"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/activity_meeting_add_llplace">
+
+        <EditText
+            android:id="@+id/activity_meeting_add_btndate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Date"
+            android:inputType="date"/>
+
+        <EditText
+            android:id="@+id/activity_meeting_add_btntimestart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Heure de début"
+            android:clickable="true"
+            android:focusable="true"
+            android:focusableInTouchMode="false"/>
+
+        <EditText
+            android:id="@+id/activity_meeting_add_btntimeend"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Heure de fin"
+            android:clickable="true"
+            android:focusable="true"
+            android:focusableInTouchMode="false" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/activity_meeting_add_llbtn"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/activity_meeting_add_lldatetime">
+
+        <Button
+            android:id="@+id/activity_meeting_add_btnvalidate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Valider la réunion"
+            android:layout_marginStart="150dp"/>
+
+    </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
