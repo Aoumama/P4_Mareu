@@ -2,6 +2,17 @@
     <string name="app_name">Ma réu</string>
     <string name="filter">Filter</string>
     <string name="date">Date</string>
-    <string name="room">Room</string>
+    <string name="room">Salle</string>
+    <string name="p">Peach</string>
+    <string name="m">Mario</string>
+    <string name="l">Luigi</string>
+    <string name="g">Greta</string>
+    <string name="i">Informatique</string>
+    <string name="w">Window</string>
+    <string name="s">Sonic</string>
+    <string name="b">Ball</string>
+    <string name="a">Apple</string>
+    <string name="c">Cat</string>
     <string name="activity_meeting_add">Nouvelle réunion</string>
+    <string name="allroom">Toute les salles</string>
 </resources>

@@ -27,6 +27,7 @@ public class MeetingActivity extends AppCompatActivity {
     private MeetingApiService mApiService;
     private RecyclerView.Adapter mMeetingAdapter;
     private RecyclerView mRecyclerView;
+    private List<Meeting> mMeeting;
 
 
     @Override
@@ -49,14 +50,20 @@ public class MeetingActivity extends AppCompatActivity {
 
     }
 
-    private void initList(List<Meeting> meetings){
-        mMeetingAdapter = new MyMeetingRecyclerViewAdapter(meetings);
-        mRecyclerView.setAdapter(mMeetingAdapter);
+//    private void initList(List<Meeting> meetings){
+//        mMeetingAdapter = new MyMeetingRecyclerViewAdapter(meetings);
+//        mRecyclerView.setAdapter(mMeetingAdapter);
+//    }
+
+    private void initList(){
+        mMeeting = mApiService.getMeeting();
+        mRecyclerView.setAdapter(new MyMeetingRecyclerViewAdapter(mMeeting));
     }
 
     @Override
     public void onResume() {
         super.onResume();
+        initList();
 
     }
 
@@ -79,7 +86,8 @@ public class MeetingActivity extends AppCompatActivity {
     @Subscribe
     public void onDeleteMeeting(DeleteMeetingEvent event) {
         mApiService.deleteMeeting(event.meeting);
-        mMeetingAdapter.notifyDataSetChanged();
+        initList();
+        //mMeetingAdapter.notifyDataSetChanged();
 
     }
 
@@ -93,5 +101,71 @@ public class MeetingActivity extends AppCompatActivity {
         return true;
     }
 
+//    @Override
+//    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+//        switch (item.getItemId()){
+//            case R.id.main_menu_menusalle_apple :
+//                filterRoom("Apple");
+//                return true;
+//
+//            case R.id.main_menu_menusalle_cat :
+//                filterRoom("Cat");
+//                return true;
+//
+//            case R.id.main_menu_menusalle_luigi :
+//                filterRoom("Luigi");
+//                return true;
+//
+//            case R.id.main_menu_menusalle_mario :
+//                filterRoom("Mario");
+//                return true;
+//
+//            case R.id.main_menu_menusalle_window :
+//                filterRoom("Window");
+//                return true;
+//
+//            case R.id.main_menu_menusalle_sonic :
+//                filterRoom("Sonic");
+//                return true;
+//
+//            case R.id.main_menu_menusalle_ball :
+//                filterRoom("Ball");
+//                return true;
+//
+//            case R.id.main_menu_menusalle_greta :
+//                filterRoom("Greta");
+//                return true;
+//
+//            case R.id.main_menu_menusalle_informatique :
+//                filterRoom("Informatique");
+//                return true;
+//
+//            case R.id.main_menu_menusalle_peach :
+//                filterRoom("Peach");
+//                return true;
+//
+//            case R.id.main_menu_allroom:
+//                //return super.onOptionsItemSelected(item);
+//
+//            default:
+//                return super.onOptionsItemSelected(item);
+//        }
+//    }
 
+//    private void filterRoom(String room) {
+//        boolean nothing = true;
+//        for (Meeting m : mApiService.getMeeting()) {
+//            if (m.getRoomMeeting().equals(room)) {
+//                nothing = false;
+//                break;
+//            }
+//        }
+//        if (!nothing) {
+//            initList(mApiService.getRoomFilter(room));
+//            mApiService.getRoomFilter(room);
+//            mMeetingAdapter.notifyDataSetChanged();
+//        } else {
+//            Toast.makeText(this, "Pas de réunion dans cette salle", Toast.LENGTH_LONG).show();
+//        }
+//    }
 }

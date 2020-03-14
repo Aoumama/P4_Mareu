@@ -9,12 +9,15 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.mareu.R;
 import com.example.mareu.events.DeleteMeetingEvent;
 import com.example.mareu.model.Meeting;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -23,9 +26,31 @@ import butterknife.ButterKnife;
 public class MyMeetingRecyclerViewAdapter extends RecyclerView.Adapter<MyMeetingRecyclerViewAdapter.ViewHolder> {
 
     List<Meeting> meeting;
+    public static boolean roomInFilterList = false;
+    private static List<Meeting> filterList = new ArrayList<>();
 
-    public MyMeetingRecyclerViewAdapter(List<Meeting> meeting){
-        this.meeting = meeting;
+
+    public MyMeetingRecyclerViewAdapter(List<Meeting> items){
+        this.meeting = items;
+        //On vide la liste filterList
+        filterList.clear();
+
+        //Si un filtre est déjà activé on le supprime pour les prochains filtres
+        if (roomInFilterList) {
+            roomInFilterList = false;
+        }
+
+        /* si un filtre est activé, on rempli la liste filterList avec les meetings correspondants */
+        for (Meeting m : items) {
+            if (m.isMeetingInFilterList()) {
+                filterList.add(m);
+                roomInFilterList = true;
+            }
+        }
+
+        if (roomInFilterList) {
+            meeting = filterList;
+        } else meeting = items;
    }
 
     @Override
@@ -38,17 +63,22 @@ public class MyMeetingRecyclerViewAdapter extends RecyclerView.Adapter<MyMeeting
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         final Meeting mMeeting = meeting.get(position);
-        holder.mMeetingMail.setText(mMeeting.getParticipantMeeting());
+        holder.mMeetingParticipant.setText(mMeeting.getParticipantMeeting());
         holder.mMeetingSubject.setText(mMeeting.getSubjectMeeting() + " -  ");
-        holder.mMeetingPlace.setText(mMeeting.getRoomMeeting());
-        holder.mMeetingTime.setText(mMeeting.getTimeStartMeeting()  + " -  ");
+        holder.mMeetingRoom.setText(mMeeting.getRoomMeeting());
+        holder.mMeetingTimeStart.setText(mMeeting.getTimeStartMeeting()  + " -  ");
+
+        Glide.with(holder.mMeetingCircleColor.getContext())
+                .load(mMeeting.getColorMeeting())
+                .apply(RequestOptions.circleCropTransform())
+                .into(holder.mMeetingCircleColor);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                new AlertDialog.Builder(v.getContext())
                         .setTitle(mMeeting.getSubjectMeeting() + " - "
-                                + mMeeting.getTimeStartMeeting()+" - "
+                                + mMeeting.getTimeStartMeeting() +" - "
                                 + mMeeting.getTimeEndMeeting()+" à "
                                 + mMeeting.getRoomMeeting())
                         .setMessage(mMeeting.getParticipantMeeting()).show();
@@ -64,26 +94,27 @@ public class MyMeetingRecyclerViewAdapter extends RecyclerView.Adapter<MyMeeting
     }
 
     @Override
-    public int getItemCount() {
-        return meeting.size();
-    }
+    public int getItemCount() { return meeting.size(); }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
 
         @BindView(R.id.activity_meeting_subject)
         public TextView mMeetingSubject;
 
-        @BindView(R.id.activity_meeting_place)
-        public TextView mMeetingPlace;
+        @BindView(R.id.activity_meeting_room)
+        public TextView mMeetingRoom;
 
-        @BindView(R.id.activity_meeting_mail)
-        public TextView mMeetingMail;
+        @BindView(R.id.activity_meeting_participant)
+        public TextView mMeetingParticipant;
 
-        @BindView(R.id.activity_meeting_time)
-        public TextView mMeetingTime;
+        @BindView(R.id.activity_meeting_timeStart)
+        public TextView mMeetingTimeStart;
 
         @BindView(R.id.activity_meeting_delete)
         public ImageView btnDelete;
+
+        @BindView(R.id.activity_meeting_add_circleColor)
+        public ImageView mMeetingCircleColor;
 
 
         public ViewHolder(View itemView) {

@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="spinner_room">
+        <item>Peach</item>
         <item>Mario</item>
         <item>Luigi</item>
-        <item>Peach</item>
         <item>Greta</item>
-        <item>D</item>
-        <item>F</item>
-        <item>K</item>
-        <item>G</item>
-        <item>Y</item>
-        <item>T</item>
+        <item>Informatique</item>
+        <item>Window</item>
+        <item>Sonic</item>
+        <item>Ball</item>
+        <item>Apple</item>
+        <item>White</item>
     </string-array>
 </resources>

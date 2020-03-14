@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="20dp"
     tools:context=".ui.meeting.AddMeetingActivity">
 
     <LinearLayout
@@ -33,14 +34,12 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/activity_meeting_add_llreturn">
-
-
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:id="@+id/activity_meeting_add_circleColor"
-            android:src="@drawable/circle"
-            android:backgroundTintMode="@color/colorGrey"/>
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="top|center_horizontal"
+            android:src="@drawable/circle" />
     </LinearLayout>
 
     <LinearLayout
@@ -121,13 +120,6 @@
         app:layout_constraintTop_toBottomOf="@+id/activity_meeting_add_llplace">
 
         <EditText
-            android:id="@+id/activity_meeting_add_btndate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:hint="Date"
-            android:inputType="date"/>
-
-        <EditText
             android:id="@+id/activity_meeting_add_btntimestart"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -160,9 +152,8 @@
             android:id="@+id/activity_meeting_add_btnvalidate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="Valider la réunion"
-            android:layout_marginStart="150dp"/>
-
+            android:layout_gravity="end"
+            android:hint="Valider la réunion"/>
     </LinearLayout>
 
 

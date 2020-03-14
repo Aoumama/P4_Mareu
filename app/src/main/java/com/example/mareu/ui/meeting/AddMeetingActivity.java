@@ -65,6 +65,9 @@ public class AddMeetingActivity extends AppCompatActivity {
         setContentView(R.layout.activity_meeting_add);
         ButterKnife.bind(this);
 
+        mApiService = DI.getMeetingApiService();
+        init();
+
         ImageView btnReturn = findViewById(R.id.activity_meeting_add_return);
         btnReturn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -82,10 +85,19 @@ public class AddMeetingActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 roomMeeting.setSelection(position);
-                String roomColorMeeting = roomMeeting.toString();
 
-                if(roomColorMeeting == "D"){
-                    colorMeeting.setColorFilter(ContextCompat.getColor(view.getContext(), R.color.colorAmber));
+                switch (position){
+                    case 0 : colorMeeting.setColorFilter(ContextCompat.getColor(view.getContext(), R.color.colorTeal)); break;
+                    case 1 : colorMeeting.setColorFilter(ContextCompat.getColor(view.getContext(), R.color.colorRed)); break;
+                    case 2 : colorMeeting.setColorFilter(ContextCompat.getColor(view.getContext(), R.color.colorPink)); break;
+                    case 3 : colorMeeting.setColorFilter(ContextCompat.getColor(view.getContext(), R.color.colorPurple)); break;
+                    case 4 : colorMeeting.setColorFilter(ContextCompat.getColor(view.getContext(), R.color.colorPrimaryDark));break;
+                    case 5 : colorMeeting.setColorFilter(ContextCompat.getColor(view.getContext(), R.color.colorOrange)); break;
+                    case 6 : colorMeeting.setColorFilter(ContextCompat.getColor(view.getContext(), R.color.colorIndigo)); break;
+                    case 7 : colorMeeting.setColorFilter(ContextCompat.getColor(view.getContext(), R.color.colorGrey));break;
+                    case 8 : colorMeeting.setColorFilter(ContextCompat.getColor(view.getContext(), R.color.colorBrown));break;
+                    case 9 : colorMeeting.setColorFilter(ContextCompat.getColor(view.getContext(), R.color.colorAmber)); break;
+                    default: colorMeeting.setColorFilter(ContextCompat.getColor(view.getContext(), R.color.colorBlack));
                 }
             }
 
@@ -95,9 +107,6 @@ public class AddMeetingActivity extends AppCompatActivity {
             }
         });
         // FIN SPINNER
-
-
-
 
         timestartMeeting.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -165,9 +174,6 @@ public class AddMeetingActivity extends AppCompatActivity {
         init();
     }
 
-
-
-
     private void init(){
         participantMeeting.getEditText().addTextChangedListener(new TextWatcher() {
             @Override
@@ -182,14 +188,15 @@ public class AddMeetingActivity extends AppCompatActivity {
     }
 
     void addMeeting() {
-            Meeting meeting = new Meeting(
-                System.currentTimeMillis(),
-                participantMeeting.getEditText().getText().toString(),
-                timestartMeeting.getText().toString(),
-                timeendMeeting.getText().toString(),
-                subjectMeeting.getEditText().getText().toString(),
-                roomMeeting.toString(),
-                colorMeeting.toString());
+        Meeting meeting = new Meeting(
+            System.currentTimeMillis(),
+            participantMeeting.getEditText().getText().toString(),
+            timestartMeeting.getText().toString(),
+            timeendMeeting.getText().toString(),
+            subjectMeeting.getEditText().getText().toString(),
+            roomMeeting.getSelectedItem().toString(),
+            colorMeeting.getImageAlpha()
+        );
         mApiService.createMeeting(meeting);
         finish();
     }

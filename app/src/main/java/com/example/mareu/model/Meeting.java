@@ -11,7 +11,9 @@ public class Meeting {
     private String timeEndMeeting;
     private String subjectMeeting;
     private String roomMeeting;
-    private String colorMeeting;
+    private int colorMeeting;
+
+    private boolean roomInFilterList;
 
     /**
      * Constructor
@@ -25,7 +27,7 @@ public class Meeting {
 
      */
 
-    public Meeting(long id, String participantMeeting, String timeStartMeeting, String timeEndMeeting, String subjectMeeting, String roomMeeting, String colorMeeting ){
+    public Meeting(long id, String participantMeeting, String timeStartMeeting, String timeEndMeeting, String subjectMeeting, String roomMeeting, int colorMeeting ){
         this.id = id;
         this.participantMeeting = participantMeeting;
         this.subjectMeeting = subjectMeeting;
@@ -33,7 +35,11 @@ public class Meeting {
         this.timeEndMeeting = timeEndMeeting;
         this.roomMeeting = roomMeeting;
         this.colorMeeting = colorMeeting;
+
+        this.roomInFilterList = false;
     }
+
+
 
 
     public long getId(){ return id; }
@@ -63,7 +69,16 @@ public class Meeting {
     public String getRoomMeeting() { return roomMeeting; }
     public void setRoomMeeting(String roomMeeting) { this.roomMeeting = roomMeeting; }
 
-    public String getColorMeeting() { return colorMeeting; }
-    public void setColorMeeting(String colorMeeting) { this.colorMeeting = colorMeeting; }
+    public int getColorMeeting() { return colorMeeting; }
+    public void setColorMeeting(int colorMeeting) { this.colorMeeting = colorMeeting; }
+
+
+    public boolean isMeetingInFilterList() {
+        return roomInFilterList;
+    }
+
+    public void setMeetingInFilterList(boolean isMeetingInFilterList) {
+        this.roomInFilterList = isMeetingInFilterList;
+    }
 
 }

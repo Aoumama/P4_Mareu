@@ -26,4 +26,15 @@ public interface MeetingApiService {
 
     List<String> generateRooms();
 
+
+    /**
+     * Get all Meetings in order of Rooms
+     */
+    List<Meeting> getRoomFilter(String room);
+
+
+    void resetFilter();
+
+
+
 }

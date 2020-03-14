@@ -7,10 +7,48 @@
             app:showAsAction="always"
             app:iconTint="@color/colorWhite">
             <menu android:id="@+id/sousmenu">
+
                 <item android:id="@+id/main_menu_dated"
-                    android:title="@string/date"   />
+                    android:title="@string/date"  />
+
                 <item android:id="@+id/main_menu_room"
-                    android:title="salle"  />
+                    android:title="@string/room">
+                    <menu android:id="@+id/main_menu_menusalle">
+
+                        <item android:id="@+id/main_menu_allroom"
+                            android:title="@string/allroom"/>
+
+                        <item android:id="@+id/main_menu_menusalle_apple"
+                            android:title="@string/a"/>
+
+                        <item android:id="@+id/main_menu_menusalle_ball"
+                            android:title="@string/b"/>
+
+                        <item android:id="@+id/main_menu_menusalle_cat"
+                            android:title="@string/c"/>
+
+                        <item android:id="@+id/main_menu_menusalle_mario"
+                            android:title="@string/m"/>
+
+                        <item android:id="@+id/main_menu_menusalle_luigi"
+                            android:title="@string/l"/>
+
+                        <item android:id="@+id/main_menu_menusalle_greta"
+                            android:title="@string/g"/>
+
+                        <item android:id="@+id/main_menu_menusalle_informatique"
+                            android:title="@string/i"/>
+
+                        <item android:id="@+id/main_menu_menusalle_window"
+                            android:title="@string/w"/>
+
+                        <item android:id="@+id/main_menu_menusalle_sonic"
+                            android:title="@string/s"/>
+
+                        <item android:id="@+id/main_menu_menusalle_peach"
+                            android:title="Peach"/>
+                    </menu>
+                </item>
             </menu>
         </item>
 </menu>
