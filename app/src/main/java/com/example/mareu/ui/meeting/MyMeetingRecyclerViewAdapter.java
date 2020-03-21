@@ -9,8 +9,6 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
 import com.example.mareu.R;
 import com.example.mareu.events.DeleteMeetingEvent;
 import com.example.mareu.model.Meeting;
@@ -67,12 +65,7 @@ public class MyMeetingRecyclerViewAdapter extends RecyclerView.Adapter<MyMeeting
         holder.mMeetingSubject.setText(mMeeting.getSubjectMeeting() + " -  ");
         holder.mMeetingRoom.setText(mMeeting.getRoomMeeting());
         holder.mMeetingTimeStart.setText(mMeeting.getTimeStartMeeting()  + " -  ");
-
-        Glide.with(holder.mMeetingCircleColor.getContext())
-                .load(mMeeting.getColorMeeting())
-                .apply(RequestOptions.circleCropTransform())
-                .into(holder.mMeetingCircleColor);
-
+        holder.mMeetingCircleColor.setColorFilter(mMeeting.getColorMeeting());
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -84,7 +77,6 @@ public class MyMeetingRecyclerViewAdapter extends RecyclerView.Adapter<MyMeeting
                         .setMessage(mMeeting.getParticipantMeeting()).show();
             }
         });
-
         holder.btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -92,6 +84,7 @@ public class MyMeetingRecyclerViewAdapter extends RecyclerView.Adapter<MyMeeting
             }
         });
     }
+
 
     @Override
     public int getItemCount() { return meeting.size(); }

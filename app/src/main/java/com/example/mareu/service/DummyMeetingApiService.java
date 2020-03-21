@@ -12,7 +12,8 @@ public class DummyMeetingApiService implements MeetingApiService  {
 
     private List<Meeting> meetings = DummyMeetingGenerator.generateMeeting();
     private List<String> rooms = DummyRoomMeetingGenerator.generateRooms();
-    private List<Meeting> roomF = new ArrayList<>();
+
+    private List<Meeting> listeR = new ArrayList<>();
 
 
     @Override
@@ -40,16 +41,19 @@ public class DummyMeetingApiService implements MeetingApiService  {
         for (Meeting m : meetings) {
             if (m.getRoomMeeting().equals(room)) {
                 m.setMeetingInFilterList(true);
-                roomF.add(m);
+                listeR.add(m);
             }
         }
-        return roomF;
+        return listeR;
     }
+
+
+
 
     @Override
     public void resetFilter() {
         for (Meeting m : meetings) {
-            roomF.clear();
+            listeR.clear();
             m.setMeetingInFilterList(false);
         }
     }

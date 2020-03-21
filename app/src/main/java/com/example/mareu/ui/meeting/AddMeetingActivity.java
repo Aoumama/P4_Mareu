@@ -29,6 +29,7 @@ import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.Calendar;
 import java.util.List;
+import java.util.TimeZone;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -111,9 +112,9 @@ public class AddMeetingActivity extends AppCompatActivity {
         timestartMeeting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Calendar mcurrentTime = Calendar.getInstance();
+                TimeZone fuseauH = TimeZone.getTimeZone("Europe/Paris");
+                Calendar mcurrentTime = Calendar.getInstance(fuseauH);
                 int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
-                hour = hour + 1;
                 int minute = mcurrentTime.get(Calendar.MINUTE);
                 TimePickerDialog mTimePicker;
                 mTimePicker = new TimePickerDialog(AddMeetingActivity.this, new TimePickerDialog.OnTimeSetListener() {
@@ -129,9 +130,9 @@ public class AddMeetingActivity extends AppCompatActivity {
         timeendMeeting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Calendar mcurrentTime = Calendar.getInstance();
+                TimeZone fuseauH = TimeZone.getTimeZone("Europe/Paris");
+                Calendar mcurrentTime = Calendar.getInstance(fuseauH);
                 int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
-                hour = hour + 1;
                 int minute = mcurrentTime.get(Calendar.MINUTE);
                 TimePickerDialog mTimePicker;
                 mTimePicker = new TimePickerDialog(AddMeetingActivity.this, new TimePickerDialog.OnTimeSetListener() {
@@ -155,9 +156,9 @@ public class AddMeetingActivity extends AppCompatActivity {
                     Toast.makeText(v.getContext(), "Veuillez renseigner le sujet de la réunion", Toast.LENGTH_SHORT).show(); return;
                 }
 
-//                if(TextUtils.isEmpty(roomMeeting.getEditText().getText())) {
-//                    Toast.makeText(v.getContext(), "Veuillez renseigner la salle de réunion", Toast.LENGTH_SHORT).show(); return;
-//                }
+                if(TextUtils.isEmpty(roomMeeting.getSelectedItem().toString())) {
+                    Toast.makeText(v.getContext(), "Veuillez séléctionner la salle de réunion", Toast.LENGTH_SHORT).show(); return;
+                }
 
                 if(TextUtils.isEmpty(timestartMeeting.getText())) {
                     Toast.makeText(v.getContext(), "Veuillez renseigner l'heure de début", Toast.LENGTH_SHORT).show(); return;
@@ -195,7 +196,7 @@ public class AddMeetingActivity extends AppCompatActivity {
             timeendMeeting.getText().toString(),
             subjectMeeting.getEditText().getText().toString(),
             roomMeeting.getSelectedItem().toString(),
-            colorMeeting.getImageAlpha()
+            colorMeeting.getId()
         );
         mApiService.createMeeting(meeting);
         finish();

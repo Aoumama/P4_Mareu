@@ -2,7 +2,10 @@ package com.example.mareu.ui.meeting;
 
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -43,17 +46,17 @@ public class MeetingActivity extends AppCompatActivity {
 
         mMeetingAdapter = new MyMeetingRecyclerViewAdapter(mApiService.getMeeting());
         mRecyclerView.setAdapter(mMeetingAdapter);
-        mMeetingAdapter.notifyDataSetChanged();
+        //mMeetingAdapter.notifyDataSetChanged();
 
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(mRecyclerView.getContext(), DividerItemDecoration.VERTICAL);
         mRecyclerView.addItemDecoration(dividerItemDecoration);
 
     }
 
-//    private void initList(List<Meeting> meetings){
-//        mMeetingAdapter = new MyMeetingRecyclerViewAdapter(meetings);
-//        mRecyclerView.setAdapter(mMeetingAdapter);
-//    }
+    private void initList1(List<Meeting> meetings){
+        mMeetingAdapter = new MyMeetingRecyclerViewAdapter(meetings);
+        mRecyclerView.setAdapter(mMeetingAdapter);
+    }
 
     private void initList(){
         mMeeting = mApiService.getMeeting();
@@ -87,13 +90,10 @@ public class MeetingActivity extends AppCompatActivity {
     public void onDeleteMeeting(DeleteMeetingEvent event) {
         mApiService.deleteMeeting(event.meeting);
         initList();
-        //mMeetingAdapter.notifyDataSetChanged();
-
-    }
+     }
 
     @OnClick(R.id.activity_meeting_add)
     void addMeeting(){AddMeetingActivity.navigate(this);}
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -101,71 +101,76 @@ public class MeetingActivity extends AppCompatActivity {
         return true;
     }
 
-//    @Override
-//    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-//        switch (item.getItemId()){
-//            case R.id.main_menu_menusalle_apple :
-//                filterRoom("Apple");
-//                return true;
-//
-//            case R.id.main_menu_menusalle_cat :
-//                filterRoom("Cat");
-//                return true;
-//
-//            case R.id.main_menu_menusalle_luigi :
-//                filterRoom("Luigi");
-//                return true;
-//
-//            case R.id.main_menu_menusalle_mario :
-//                filterRoom("Mario");
-//                return true;
-//
-//            case R.id.main_menu_menusalle_window :
-//                filterRoom("Window");
-//                return true;
-//
-//            case R.id.main_menu_menusalle_sonic :
-//                filterRoom("Sonic");
-//                return true;
-//
-//            case R.id.main_menu_menusalle_ball :
-//                filterRoom("Ball");
-//                return true;
-//
-//            case R.id.main_menu_menusalle_greta :
-//                filterRoom("Greta");
-//                return true;
-//
-//            case R.id.main_menu_menusalle_informatique :
-//                filterRoom("Informatique");
-//                return true;
-//
-//            case R.id.main_menu_menusalle_peach :
-//                filterRoom("Peach");
-//                return true;
-//
-//            case R.id.main_menu_allroom:
-//                //return super.onOptionsItemSelected(item);
-//
-//            default:
-//                return super.onOptionsItemSelected(item);
-//        }
-//    }
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.main_menu_dated :
+                return true;
 
-//    private void filterRoom(String room) {
-//        boolean nothing = true;
-//        for (Meeting m : mApiService.getMeeting()) {
-//            if (m.getRoomMeeting().equals(room)) {
-//                nothing = false;
-//                break;
-//            }
-//        }
-//        if (!nothing) {
-//            initList(mApiService.getRoomFilter(room));
-//            mApiService.getRoomFilter(room);
-//            mMeetingAdapter.notifyDataSetChanged();
-//        } else {
-//            Toast.makeText(this, "Pas de réunion dans cette salle", Toast.LENGTH_LONG).show();
-//        }
-//    }
+            case R.id.main_menu_menusalle_apple :
+                filterRoom("Apple");
+                return true;
+
+            case R.id.main_menu_menusalle_cat :
+                filterRoom("Cat");
+                return true;
+
+            case R.id.main_menu_menusalle_luigi :
+                filterRoom("Luigi");
+                return true;
+
+            case R.id.main_menu_menusalle_mario :
+                filterRoom("Mario");
+                return true;
+
+            case R.id.main_menu_menusalle_window :
+                filterRoom("Window");
+                return true;
+
+            case R.id.main_menu_menusalle_sonic :
+                filterRoom("Sonic");
+                return true;
+
+            case R.id.main_menu_menusalle_ball :
+                filterRoom("Ball");
+                return true;
+
+            case R.id.main_menu_menusalle_greta :
+                filterRoom("Greta");
+                return true;
+
+            case R.id.main_menu_menusalle_informatique :
+                filterRoom("Informatique");
+                return true;
+
+            case R.id.main_menu_menusalle_peach :
+                filterRoom("Peach");
+                return true;
+
+            case R.id.main_menu_allroom:
+                initList1(mApiService.getMeeting());
+                mApiService.getMeeting();
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    private void filterRoom(String room) {
+        boolean nothing = true;
+        for (Meeting m : mApiService.getMeeting()) {
+            if (m.getRoomMeeting().equals(room)) {
+                nothing = false;
+                break;
+            }
+        }
+        if (!nothing) {
+            initList1(mApiService.getRoomFilter(room));
+            mApiService.getRoomFilter(room);
+        } else {
+            Toast.makeText(this, "Pas de réunion dans cette salle", Toast.LENGTH_LONG).show();
+        }
+    }
+
 }
