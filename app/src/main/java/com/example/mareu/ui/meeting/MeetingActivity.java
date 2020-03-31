@@ -1,10 +1,8 @@
 package com.example.mareu.ui.meeting;
 
-import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.DatePicker;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -21,9 +19,7 @@ import com.example.mareu.service.MeetingApiService;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
-import org.joda.time.DateTime;
 
-import java.util.Calendar;
 import java.util.List;
 
 import butterknife.ButterKnife;
@@ -32,7 +28,7 @@ import butterknife.OnClick;
 public class MeetingActivity extends AppCompatActivity {
 
     private MeetingApiService mApiService;
-    private RecyclerView.Adapter mMeetingAdapter;
+    private MyMeetingRecyclerViewAdapter mMeetingAdapter;
     private RecyclerView mRecyclerView;
     private List<Meeting> mMeeting;
 
@@ -56,21 +52,16 @@ public class MeetingActivity extends AppCompatActivity {
 
     }
 
-    private void initList1(List<Meeting> meetings){
-        mMeetingAdapter = new MyMeetingRecyclerViewAdapter(meetings, this);
-        mRecyclerView.setAdapter(mMeetingAdapter);
+
+    private void updateList(List<Meeting> meetings){
+        mMeetingAdapter.updateData(meetings);
     }
 
-    private void initList(){
-        mMeeting = mApiService.getMeeting();
-        mRecyclerView.setAdapter(new MyMeetingRecyclerViewAdapter(mMeeting, this));
-    }
 
     @Override
     public void onResume() {
         super.onResume();
-        initList();
-
+        mMeetingAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -88,7 +79,7 @@ public class MeetingActivity extends AppCompatActivity {
     @Subscribe
     public void onDeleteMeeting(DeleteMeetingEvent event) {
         mApiService.deleteMeeting(event.meeting);
-        initList();
+        mMeetingAdapter.notifyDataSetChanged();
      }
 
     @OnClick(R.id.activity_meeting_add)
@@ -148,8 +139,7 @@ public class MeetingActivity extends AppCompatActivity {
                 return true;
 
             case R.id.main_menu_allroom:
-                initList1(mApiService.getMeeting());
-                mApiService.getMeeting();
+                updateList(mApiService.getMeeting());
                 return true;
 
             default:
@@ -166,46 +156,45 @@ public class MeetingActivity extends AppCompatActivity {
             }
         }
         if (!nothing) {
-            initList1(mApiService.getRoomFilter(room));
-            mApiService.getRoomFilter(room);
+            updateList(mApiService.getRoomFilter(room));
         } else {
             Toast.makeText(this, "Pas de réunion dans cette salle", Toast.LENGTH_LONG).show();
         }
     }
 
     private void showDate() {
-        Calendar cal = Calendar.getInstance();
-        int year = cal.get(Calendar.YEAR);
-        int month = cal.get(Calendar.MONTH);
-        int day = cal.get(Calendar.DAY_OF_MONTH);
-        DatePickerDialog dialogDate = new DatePickerDialog(this, generateDatePickerDialog(), year, month, day);
-        dialogDate.getDatePicker().setMinDate(System.currentTimeMillis());
-        dialogDate.show();
+//        Calendar cal = Calendar.getInstance();
+//        int year = cal.get(Calendar.YEAR);
+//        int month = cal.get(Calendar.MONTH);
+//        int day = cal.get(Calendar.DAY_OF_MONTH);
+//        DatePickerDialog dialogDate = new DatePickerDialog(this, generateDatePickerDialog(), year, month, day);
+//        dialogDate.getDatePicker().setMinDate(System.currentTimeMillis());
+//        dialogDate.show();
     }
 
-    private DatePickerDialog.OnDateSetListener generateDatePickerDialog() {
-        return new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                DateTime time = new DateTime(year, monthOfYear , dayOfMonth, 00, 00);
-                boolean nothing = true;
-
-                for (Meeting m : mApiService.getMeeting()) {
-                    if (m.getDateDay().equals(time.toLocalDate())) {
-                        nothing = false;
-                        Toast.makeText(view.getContext(), "test 1", Toast.LENGTH_LONG).show();
-                    }
-                }
-
-                if (!nothing) {
-                    initList1(mApiService.getMeetingsByDate(time));
-                    mApiService.getMeetingsByDate(time);
-                    Toast.makeText(view.getContext(), "Réunion prévue à cette date", Toast.LENGTH_LONG).show();
-                } else {
-                    Toast.makeText(view.getContext(), "Aucune réunion prévue à cette date", Toast.LENGTH_LONG).show();
-                }
-            }
-        };
-    }
+//    private DatePickerDialog.OnDateSetListener generateDatePickerDialog() {
+//        return new DatePickerDialog.OnDateSetListener() {
+//            @Override
+//            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+//                DateTime time = new DateTime(year, monthOfYear , dayOfMonth, 00, 00);
+//                boolean nothing = true;
+//
+//                for (Meeting m : mApiService.getMeeting()) {
+//                    if (m.getDateDay().equals(time.toLocalDate())) {
+//                        nothing = false;
+//                        Toast.makeText(view.getContext(), "test 1", Toast.LENGTH_LONG).show();
+//                    }
+//                }
+//
+//                if (!nothing) {
+//                    initList1(mApiService.getMeetingsByDate(time));
+//                    mApiService.getMeetingsByDate(time);
+//                    Toast.makeText(view.getContext(), "Réunion prévue à cette date", Toast.LENGTH_LONG).show();
+//                } else {
+//                    Toast.makeText(view.getContext(), "Aucune réunion prévue à cette date", Toast.LENGTH_LONG).show();
+//                }
+//            }
+//        };
+//    }
 
 }

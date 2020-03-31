@@ -40,7 +40,6 @@ public class DummyMeetingApiService implements MeetingApiService  {
 
         for (Meeting m : meetings) {
             if (m.getRoomMeeting().equals(room)) {
-                m.setMeetingInFilterList(true);
                 listeR.add(m);
             }
         }
@@ -49,21 +48,18 @@ public class DummyMeetingApiService implements MeetingApiService  {
 
     @Override
     public void resetFilter() {
-        for (Meeting m : meetings) {
-            listeR.clear();
-            m.setMeetingInFilterList(false);
-        }
+        listeR.clear();
     }
 
     @Override
     public List<Meeting> getMeetingsByDate(DateTime mDate) {
-        resetFilter();
-        for (Meeting m : meetings) {
-            if (m.getTimeStartMeeting().equals(mDate.toLocalDate())) {
-                m.setMeetingInFilterList(true);
-                listeR.add(m);
-            }
-        }
-        return listeR;
-    }
+//        resetFilter();
+//        for (Meeting m : meetings) {
+//            if (m.getTimeStartMeeting().equals(mDate.toLocalDate())) {
+//                m.setMeetingInFilterList(true);
+//                listeR.add(m);
+//            }
+//        }
+//        return listeR;
+//    }
 }

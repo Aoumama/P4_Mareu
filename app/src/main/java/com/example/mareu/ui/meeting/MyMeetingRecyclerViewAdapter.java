@@ -17,7 +17,6 @@ import com.example.mareu.model.Meeting;
 
 import org.greenrobot.eventbus.EventBus;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -25,35 +24,13 @@ import butterknife.ButterKnife;
 
 public class MyMeetingRecyclerViewAdapter extends RecyclerView.Adapter<MyMeetingRecyclerViewAdapter.ViewHolder> {
 
-    List<Meeting> meeting;
-    public static boolean roomInFilterList = false;
-    private static List<Meeting> filterList = new ArrayList<>();
+    List<Meeting> meetings;
     Context context;
 
     public MyMeetingRecyclerViewAdapter(List<Meeting> items, Context context){
-        this.meeting = items;
+        this.meetings = items;
         this.context = context;
-
-        //On vide la liste filterList
-        filterList.clear();
-
-        //Si un filtre est déjà activé on le supprime pour les prochains filtres
-        if (roomInFilterList) {
-            roomInFilterList = false;
-        }
-
-        /* si un filtre est activé, on rempli la liste filterList avec les meetings correspondants */
-        for (Meeting m : items) {
-            if (m.isMeetingInFilterList()) {
-                filterList.add(m);
-                roomInFilterList = true;
-            }
-        }
-
-        if (roomInFilterList) {
-            meeting = filterList;
-        } else meeting = items;
-   }
+    }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType){
@@ -64,7 +41,7 @@ public class MyMeetingRecyclerViewAdapter extends RecyclerView.Adapter<MyMeeting
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        final Meeting mMeeting = meeting.get(position);
+        final Meeting mMeeting = meetings.get(position);
         holder.mMeetingParticipant.setText(mMeeting.getParticipantMeeting());
         holder.mMeetingSubject.setText(mMeeting.getSubjectMeeting() + " - ");
         holder.mMeetingRoom.setText(mMeeting.getRoomMeeting());
@@ -90,8 +67,20 @@ public class MyMeetingRecyclerViewAdapter extends RecyclerView.Adapter<MyMeeting
         });
     }
 
+    public void updateData(List<Meeting> meetings){
+        for(Meeting m : meetings) {
+            System.out.println(m.getSubjectMeeting());
+        }
+        this.meetings = meetings;
+        notifyDataSetChanged();
+
+        for(Meeting m : this.meetings) {
+            System.out.println(m.getSubjectMeeting());
+        }
+    }
+
     @Override
-    public int getItemCount() { return meeting.size(); }
+    public int getItemCount() { return meetings.size(); }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
 

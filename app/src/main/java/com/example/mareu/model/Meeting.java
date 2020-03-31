@@ -43,8 +43,6 @@ public class Meeting {
         this.colorMeeting = colorMeeting;
         this.dateDay = dateDay;
 
-        this.roomInFilterList = false;
-
         this.dateFilter = dateFilter;
     }
 
@@ -85,14 +83,6 @@ public class Meeting {
 
     public int getColorMeeting() { return colorMeeting; }
     public void setColorMeeting(int colorMeeting) { this.colorMeeting = colorMeeting; }
-
-
-    public boolean isMeetingInFilterList() {
-        return roomInFilterList;
-    }
-    public void setMeetingInFilterList(boolean isMeetingInFilterList) {
-        this.roomInFilterList = isMeetingInFilterList;
-    }
 
     public DateTime getDateFilter(){ return dateFilter; }
     public void setDateFilter(DateTime dateFilter) { this.dateFilter = dateFilter; }
