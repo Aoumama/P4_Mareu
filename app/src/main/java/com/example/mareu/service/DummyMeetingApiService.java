@@ -2,6 +2,8 @@ package com.example.mareu.service;
 
 import com.example.mareu.model.Meeting;
 
+import org.joda.time.DateTime;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,7 +16,6 @@ public class DummyMeetingApiService implements MeetingApiService  {
     private List<String> rooms = DummyRoomMeetingGenerator.generateRooms();
 
     private List<Meeting> listeR = new ArrayList<>();
-
 
     @Override
     public List<Meeting> getMeeting(){
@@ -35,7 +36,6 @@ public class DummyMeetingApiService implements MeetingApiService  {
     public List<String> generateRooms() { return rooms; }
 
     public List<Meeting> getRoomFilter(String room) {
-
         resetFilter();
 
         for (Meeting m : meetings) {
@@ -47,14 +47,23 @@ public class DummyMeetingApiService implements MeetingApiService  {
         return listeR;
     }
 
-
-
-
     @Override
     public void resetFilter() {
         for (Meeting m : meetings) {
             listeR.clear();
             m.setMeetingInFilterList(false);
         }
+    }
+
+    @Override
+    public List<Meeting> getMeetingsByDate(DateTime mDate) {
+        resetFilter();
+        for (Meeting m : meetings) {
+            if (m.getTimeStartMeeting().equals(mDate.toLocalDate())) {
+                m.setMeetingInFilterList(true);
+                listeR.add(m);
+            }
+        }
+        return listeR;
     }
 }

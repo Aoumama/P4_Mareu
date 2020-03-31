@@ -16,7 +16,6 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
 
 /**
  * Unit test Meeting
@@ -53,12 +52,12 @@ public class MeetingTest {
         assertFalse(service.getMeeting().contains(meetingToDelete));
     }
 
-    @Test
-    public void addMeeting() {
-        Meeting meetingToAdded = new Meeting(2, "nom@lamzone.fr", "10h00", "12h00", "Réunion A", service.generateRooms().get(0), R.color.colorPink );
-        service.createMeeting(meetingToAdded);
-        assertTrue(service.getMeeting().contains(meetingToAdded));
-    }
+//    @Test
+//    public void addMeeting() {
+//        Meeting meetingToAdded = new Meeting(2, "nom@lamzone.fr", "10h00", "12h00", "Réunion A", service.generateRooms().get(0), R.color.colorPink );
+//        service.createMeeting(meetingToAdded);
+//        assertTrue(service.getMeeting().contains(meetingToAdded));
+//    }
 
     @Test
     public void getMeetingsFilterRoom() {

@@ -120,6 +120,15 @@
         app:layout_constraintTop_toBottomOf="@+id/activity_meeting_add_llplace">
 
         <EditText
+            android:id="@+id/activity_meeting_add_day"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Date"
+            android:clickable="true"
+            android:focusable="true"
+            android:focusableInTouchMode="false" />
+
+        <EditText
             android:id="@+id/activity_meeting_add_btntimestart"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -136,6 +145,7 @@
             android:clickable="true"
             android:focusable="true"
             android:focusableInTouchMode="false" />
+
 
     </LinearLayout>
 

@@ -2,6 +2,8 @@ package com.example.mareu.service;
 
 import com.example.mareu.model.Meeting;
 
+import org.joda.time.DateTime;
+
 import java.util.List;
 
 public interface MeetingApiService {
@@ -26,11 +28,12 @@ public interface MeetingApiService {
 
     List<String> generateRooms();
 
-
     /**
      * Get all Meetings in order of Rooms
      */
     List<Meeting> getRoomFilter(String room);
+
+    List<Meeting> getMeetingsByDate(DateTime mDate);
 
 
     void resetFilter();

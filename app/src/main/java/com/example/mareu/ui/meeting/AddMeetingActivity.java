@@ -1,5 +1,6 @@
 package com.example.mareu.ui.meeting;
 
+import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,6 +11,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
@@ -54,6 +56,9 @@ public class AddMeetingActivity extends AppCompatActivity {
     @BindView(R.id.activity_meeting_add_btntimestart)
     EditText timestartMeeting;
 
+    @BindView(R.id.activity_meeting_add_day)
+    EditText dateMeeting;
+
     @BindView(R.id.activity_meeting_add_btnvalidate)
     Button validateMeeting;
 
@@ -86,7 +91,6 @@ public class AddMeetingActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 roomMeeting.setSelection(position);
-
                 switch (position){
                     case 0 : colorMeeting.setColorFilter(ContextCompat.getColor(view.getContext(), R.color.colorTeal)); break;
                     case 1 : colorMeeting.setColorFilter(ContextCompat.getColor(view.getContext(), R.color.colorRed)); break;
@@ -98,14 +102,12 @@ public class AddMeetingActivity extends AppCompatActivity {
                     case 7 : colorMeeting.setColorFilter(ContextCompat.getColor(view.getContext(), R.color.colorGrey));break;
                     case 8 : colorMeeting.setColorFilter(ContextCompat.getColor(view.getContext(), R.color.colorBrown));break;
                     case 9 : colorMeeting.setColorFilter(ContextCompat.getColor(view.getContext(), R.color.colorAmber)); break;
-                    default: colorMeeting.setColorFilter(ContextCompat.getColor(view.getContext(), R.color.colorBlack));
+                    default: onItemSelected(parent, view, position, id);
                 }
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
+            public void onNothingSelected(AdapterView<?> parent) { }
         });
         // FIN SPINNER
 
@@ -127,6 +129,7 @@ public class AddMeetingActivity extends AppCompatActivity {
                 mTimePicker.show();
             }
         });
+
         timeendMeeting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -145,6 +148,27 @@ public class AddMeetingActivity extends AppCompatActivity {
                 mTimePicker.show();
             }
         });
+
+        dateMeeting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Calendar c = Calendar.getInstance();
+                int mYear = c.get(Calendar.YEAR);
+                int mMonth = c.get(Calendar.MONTH);
+                int mDay = c.get(Calendar.DAY_OF_MONTH);
+                DatePickerDialog dialogDate = new DatePickerDialog(AddMeetingActivity.this, new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                        dateMeeting.setText(dayOfMonth + "/" + month + "/" + year);
+                    }
+                }, mYear, mMonth, mDay);
+                //dialogDate.getDatePicker().setMinDate(System.currentTimeMillis());
+                dialogDate.setTitle("Séléctionner le jour de la réunion");
+                dialogDate.show();
+
+            }
+        });
+
         validateMeeting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -194,6 +218,7 @@ public class AddMeetingActivity extends AppCompatActivity {
             participantMeeting.getEditText().getText().toString(),
             timestartMeeting.getText().toString(),
             timeendMeeting.getText().toString(),
+            dateMeeting.getText().toString(),
             subjectMeeting.getEditText().getText().toString(),
             roomMeeting.getSelectedItem().toString(),
             colorMeeting.getId()

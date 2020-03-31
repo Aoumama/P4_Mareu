@@ -27,7 +27,6 @@ public class MyMeetingRecyclerViewAdapter extends RecyclerView.Adapter<MyMeeting
     public static boolean roomInFilterList = false;
     private static List<Meeting> filterList = new ArrayList<>();
 
-
     public MyMeetingRecyclerViewAdapter(List<Meeting> items){
         this.meeting = items;
         //On vide la liste filterList
@@ -70,9 +69,10 @@ public class MyMeetingRecyclerViewAdapter extends RecyclerView.Adapter<MyMeeting
             @Override
             public void onClick(View v) {
                new AlertDialog.Builder(v.getContext())
-                        .setTitle(mMeeting.getSubjectMeeting() + " - "
-                                + mMeeting.getTimeStartMeeting() +" - "
-                                + mMeeting.getTimeEndMeeting()+" à "
+                        .setTitle(mMeeting.getSubjectMeeting() + " le "
+                                + mMeeting.getDateDay() + " de "
+                                + mMeeting.getTimeStartMeeting() +" à "
+                                + mMeeting.getTimeEndMeeting()+" "
                                 + mMeeting.getRoomMeeting())
                         .setMessage(mMeeting.getParticipantMeeting()).show();
             }
@@ -84,7 +84,6 @@ public class MyMeetingRecyclerViewAdapter extends RecyclerView.Adapter<MyMeeting
             }
         });
     }
-
 
     @Override
     public int getItemCount() { return meeting.size(); }
@@ -116,6 +115,10 @@ public class MyMeetingRecyclerViewAdapter extends RecyclerView.Adapter<MyMeeting
         }
     }
 
-
-
 }
+
+
+
+
+
+

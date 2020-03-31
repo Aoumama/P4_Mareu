@@ -1,5 +1,7 @@
 package com.example.mareu.model;
 
+import org.joda.time.DateTime;
+
 public class Meeting {
     /**
      * Model object representing a Meeting
@@ -9,11 +11,14 @@ public class Meeting {
     private String participantMeeting;
     private String timeStartMeeting;
     private String timeEndMeeting;
+    private String dateDay;
     private String subjectMeeting;
     private String roomMeeting;
     private int colorMeeting;
 
     private boolean roomInFilterList;
+
+    private DateTime dateFilter;
 
     /**
      * Constructor
@@ -21,13 +26,14 @@ public class Meeting {
      * @param participantMeeting
      * @param timeStartMeeting
      * @param timeEndMeeting
+     * @param dateDay
      * @param subjectMeeting
      * @param roomMeeting
      * @param colorMeeting
 
      */
 
-    public Meeting(long id, String participantMeeting, String timeStartMeeting, String timeEndMeeting, String subjectMeeting, String roomMeeting, int colorMeeting ){
+    public Meeting(long id, String participantMeeting, String timeStartMeeting, String timeEndMeeting, String dateDay, String subjectMeeting, String roomMeeting, int colorMeeting ){
         this.id = id;
         this.participantMeeting = participantMeeting;
         this.subjectMeeting = subjectMeeting;
@@ -35,8 +41,11 @@ public class Meeting {
         this.timeEndMeeting = timeEndMeeting;
         this.roomMeeting = roomMeeting;
         this.colorMeeting = colorMeeting;
+        this.dateDay = dateDay;
 
         this.roomInFilterList = false;
+
+        this.dateFilter = dateFilter;
     }
 
 
@@ -66,6 +75,11 @@ public class Meeting {
     }
     public void setTimeEndMeeting(String timeEndMeeting){ this.timeEndMeeting = timeEndMeeting; }
 
+    public String getDateDay(){
+        return dateDay;
+    }
+    public void setDateDay(String dateDay){ this.dateDay = dateDay; }
+
     public String getRoomMeeting() { return roomMeeting; }
     public void setRoomMeeting(String roomMeeting) { this.roomMeeting = roomMeeting; }
 
@@ -76,9 +90,10 @@ public class Meeting {
     public boolean isMeetingInFilterList() {
         return roomInFilterList;
     }
-
     public void setMeetingInFilterList(boolean isMeetingInFilterList) {
         this.roomInFilterList = isMeetingInFilterList;
     }
 
+    public DateTime getDateFilter(){ return dateFilter; }
+    public void setDateFilter(DateTime dateFilter) { this.dateFilter = dateFilter; }
 }
