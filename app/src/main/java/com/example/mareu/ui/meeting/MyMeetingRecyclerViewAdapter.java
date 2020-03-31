@@ -1,12 +1,14 @@
 package com.example.mareu.ui.meeting;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mareu.R;
@@ -26,9 +28,12 @@ public class MyMeetingRecyclerViewAdapter extends RecyclerView.Adapter<MyMeeting
     List<Meeting> meeting;
     public static boolean roomInFilterList = false;
     private static List<Meeting> filterList = new ArrayList<>();
+    Context context;
 
-    public MyMeetingRecyclerViewAdapter(List<Meeting> items){
+    public MyMeetingRecyclerViewAdapter(List<Meeting> items, Context context){
         this.meeting = items;
+        this.context = context;
+
         //On vide la liste filterList
         filterList.clear();
 
@@ -64,7 +69,7 @@ public class MyMeetingRecyclerViewAdapter extends RecyclerView.Adapter<MyMeeting
         holder.mMeetingSubject.setText(mMeeting.getSubjectMeeting() + " -  ");
         holder.mMeetingRoom.setText(mMeeting.getRoomMeeting());
         holder.mMeetingTimeStart.setText(mMeeting.getTimeStartMeeting()  + " -  ");
-        holder.mMeetingCircleColor.setColorFilter(mMeeting.getColorMeeting());
+        holder.mMeetingCircleColor.setColorFilter(ContextCompat.getColor(context, mMeeting.getColorMeeting()));
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

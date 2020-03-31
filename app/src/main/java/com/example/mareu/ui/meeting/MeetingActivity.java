@@ -48,9 +48,8 @@ public class MeetingActivity extends AppCompatActivity {
         mRecyclerView = findViewById(R.id.activity_meeting_recyclerview_list);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        mMeetingAdapter = new MyMeetingRecyclerViewAdapter(mApiService.getMeeting());
+        mMeetingAdapter = new MyMeetingRecyclerViewAdapter(mApiService.getMeeting(),this);
         mRecyclerView.setAdapter(mMeetingAdapter);
-        //mMeetingAdapter.notifyDataSetChanged();
 
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(mRecyclerView.getContext(), DividerItemDecoration.VERTICAL);
         mRecyclerView.addItemDecoration(dividerItemDecoration);
@@ -58,13 +57,13 @@ public class MeetingActivity extends AppCompatActivity {
     }
 
     private void initList1(List<Meeting> meetings){
-        mMeetingAdapter = new MyMeetingRecyclerViewAdapter(meetings);
+        mMeetingAdapter = new MyMeetingRecyclerViewAdapter(meetings, this);
         mRecyclerView.setAdapter(mMeetingAdapter);
     }
 
     private void initList(){
         mMeeting = mApiService.getMeeting();
-        mRecyclerView.setAdapter(new MyMeetingRecyclerViewAdapter(mMeeting));
+        mRecyclerView.setAdapter(new MyMeetingRecyclerViewAdapter(mMeeting, this));
     }
 
     @Override
