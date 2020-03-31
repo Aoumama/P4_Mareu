@@ -66,16 +66,16 @@ public class MyMeetingRecyclerViewAdapter extends RecyclerView.Adapter<MyMeeting
     public void onBindViewHolder(final ViewHolder holder, int position) {
         final Meeting mMeeting = meeting.get(position);
         holder.mMeetingParticipant.setText(mMeeting.getParticipantMeeting());
-        holder.mMeetingSubject.setText(mMeeting.getSubjectMeeting() + " -  ");
+        holder.mMeetingSubject.setText(mMeeting.getSubjectMeeting() + " - ");
         holder.mMeetingRoom.setText(mMeeting.getRoomMeeting());
-        holder.mMeetingTimeStart.setText(mMeeting.getTimeStartMeeting()  + " -  ");
+        holder.mMeetingTimeStart.setText(mMeeting.getTimeStartMeeting()  + " - ");
         holder.mMeetingCircleColor.setColorFilter(ContextCompat.getColor(context, mMeeting.getColorMeeting()));
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                new AlertDialog.Builder(v.getContext())
                         .setTitle(mMeeting.getSubjectMeeting() + " le "
-                                + mMeeting.getDateDay() + " de "
+                                + mMeeting.getDateDay() + "de"
                                 + mMeeting.getTimeStartMeeting() +" à "
                                 + mMeeting.getTimeEndMeeting()+" "
                                 + mMeeting.getRoomMeeting())

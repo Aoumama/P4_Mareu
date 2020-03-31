@@ -64,6 +64,7 @@ public class AddMeetingActivity extends AppCompatActivity {
 
     private MeetingApiService mApiService;
     private List<String> mApiServiceRoom;
+    private int colorSelected;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,18 +93,19 @@ public class AddMeetingActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 roomMeeting.setSelection(position);
                 switch (position){
-                    case 0 : colorMeeting.setColorFilter(ContextCompat.getColor(view.getContext(), R.color.colorTeal)); break;
-                    case 1 : colorMeeting.setColorFilter(ContextCompat.getColor(view.getContext(), R.color.colorRed)); break;
-                    case 2 : colorMeeting.setColorFilter(ContextCompat.getColor(view.getContext(), R.color.colorPink)); break;
-                    case 3 : colorMeeting.setColorFilter(ContextCompat.getColor(view.getContext(), R.color.colorPurple)); break;
-                    case 4 : colorMeeting.setColorFilter(ContextCompat.getColor(view.getContext(), R.color.colorPrimaryDark));break;
-                    case 5 : colorMeeting.setColorFilter(ContextCompat.getColor(view.getContext(), R.color.colorOrange)); break;
-                    case 6 : colorMeeting.setColorFilter(ContextCompat.getColor(view.getContext(), R.color.colorIndigo)); break;
-                    case 7 : colorMeeting.setColorFilter(ContextCompat.getColor(view.getContext(), R.color.colorGrey));break;
-                    case 8 : colorMeeting.setColorFilter(ContextCompat.getColor(view.getContext(), R.color.colorBrown));break;
-                    case 9 : colorMeeting.setColorFilter(ContextCompat.getColor(view.getContext(), R.color.colorAmber)); break;
+                    case 0 : colorSelected = R.color.colorTeal; break;
+                    case 1 : colorSelected = R.color.colorRed; break;
+                    case 2 : colorSelected = R.color.colorPink; break;
+                    case 3 : colorSelected = R.color.colorPurple; break;
+                    case 4 : colorSelected = R.color.colorPrimaryDark; break;
+                    case 5 : colorSelected = R.color.colorOrange; break;
+                    case 6 : colorSelected = R.color.colorIndigo; break;
+                    case 7 : colorSelected = R.color.colorGrey; break;
+                    case 8 : colorSelected = R.color.colorBrown; break;
+                    case 9 : colorSelected = R.color.colorAmber; break;
                     default: onItemSelected(parent, view, position, id);
                 }
+                colorMeeting.setColorFilter(ContextCompat.getColor(view.getContext(), colorSelected));
             }
 
             @Override
@@ -122,14 +124,13 @@ public class AddMeetingActivity extends AppCompatActivity {
                 mTimePicker = new TimePickerDialog(AddMeetingActivity.this, new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
-                        timestartMeeting.setText(selectedHour + "h" + selectedMinute);
+                        timestartMeeting.setText(String.format("%02d", selectedHour) + "h" + String.format("%02d", selectedMinute));
                     }
                 }, hour, minute, true);//Yes 24 hour time
                 mTimePicker.setTitle("Séléctionner l'heure");
                 mTimePicker.show();
             }
         });
-
         timeendMeeting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -141,7 +142,7 @@ public class AddMeetingActivity extends AppCompatActivity {
                 mTimePicker = new TimePickerDialog(AddMeetingActivity.this, new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
-                        timeendMeeting.setText(selectedHour + "h" + selectedMinute);
+                        timeendMeeting.setText(String.format("%02d", selectedHour) + "h" + String.format("%02d", selectedMinute));
                     }
                 }, hour, minute, true);//Yes 24 hour time
                 mTimePicker.setTitle("Séléctionner l'heure");
@@ -159,7 +160,9 @@ public class AddMeetingActivity extends AppCompatActivity {
                 DatePickerDialog dialogDate = new DatePickerDialog(AddMeetingActivity.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                        dateMeeting.setText(dayOfMonth + "/" + month + "/" + year);
+                        month = month + 1;
+                        dateMeeting.setText(String.format("%02d", dayOfMonth)
+                                 + "/" + String.format("%02d", month) + "/" + year);
                     }
                 }, mYear, mMonth, mDay);
                 //dialogDate.getDatePicker().setMinDate(System.currentTimeMillis());
@@ -212,7 +215,7 @@ public class AddMeetingActivity extends AppCompatActivity {
         });
     }
 
-    void addMeeting() {
+    private void addMeeting() {
         Meeting meeting = new Meeting(
             System.currentTimeMillis(),
             participantMeeting.getEditText().getText().toString(),
@@ -221,7 +224,7 @@ public class AddMeetingActivity extends AppCompatActivity {
             dateMeeting.getText().toString(),
             subjectMeeting.getEditText().getText().toString(),
             roomMeeting.getSelectedItem().toString(),
-            colorMeeting.getId()
+            colorSelected
         );
         mApiService.createMeeting(meeting);
         finish();

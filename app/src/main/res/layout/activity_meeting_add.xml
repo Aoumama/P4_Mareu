@@ -64,14 +64,15 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:hint="Liste des participants"
-                android:inputType="textPersonName" />
+                android:inputType="textPersonName"
+                android:maxLines="1"/>
         </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/activity_meeting_add_llsubject"
         android:layout_width="match_parent"
-        android:layout_height="80dp"
+        android:layout_height="0dp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -89,7 +90,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:hint="Sujet de la réunion" />
+                android:hint="Sujet de la réunion"
+                android:maxLines="1"/>
         </com.google.android.material.textfield.TextInputLayout>
 
     </LinearLayout>
