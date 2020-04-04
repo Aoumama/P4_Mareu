@@ -52,7 +52,7 @@ public class MyMeetingRecyclerViewAdapter extends RecyclerView.Adapter<MyMeeting
             public void onClick(View v) {
                new AlertDialog.Builder(v.getContext())
                         .setTitle(mMeeting.getSubjectMeeting() + " le "
-                                + mMeeting.getDateDay() + "de"
+                                + mMeeting.getDateDay() + " de "
                                 + mMeeting.getTimeStartMeeting() +" à "
                                 + mMeeting.getTimeEndMeeting()+" "
                                 + mMeeting.getRoomMeeting())
@@ -68,15 +68,8 @@ public class MyMeetingRecyclerViewAdapter extends RecyclerView.Adapter<MyMeeting
     }
 
     public void updateData(List<Meeting> meetings){
-        for(Meeting m : meetings) {
-            System.out.println(m.getSubjectMeeting());
-        }
         this.meetings = meetings;
         notifyDataSetChanged();
-
-        for(Meeting m : this.meetings) {
-            System.out.println(m.getSubjectMeeting());
-        }
     }
 
     @Override

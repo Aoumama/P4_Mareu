@@ -149,7 +149,6 @@ public class AddMeetingActivity extends AppCompatActivity {
                 mTimePicker.show();
             }
         });
-
         dateMeeting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -165,7 +164,7 @@ public class AddMeetingActivity extends AppCompatActivity {
                                  + "/" + String.format("%02d", month) + "/" + year);
                     }
                 }, mYear, mMonth, mDay);
-                //dialogDate.getDatePicker().setMinDate(System.currentTimeMillis());
+                dialogDate.getDatePicker().setMinDate(System.currentTimeMillis());
                 dialogDate.setTitle("Séléctionner le jour de la réunion");
                 dialogDate.show();
 
@@ -193,6 +192,10 @@ public class AddMeetingActivity extends AppCompatActivity {
 
                 if(TextUtils.isEmpty(timeendMeeting.getText())) {
                     Toast.makeText(v.getContext(), "Veillez renseigner l'heure de fin", Toast.LENGTH_SHORT).show(); return;
+                }
+
+                if(TextUtils.isEmpty(timestartMeeting.getText()) == TextUtils.isEmpty(timeendMeeting.getText())){
+                    Toast.makeText(v.getContext(), "L'heure de fin de la réunion ne peut être égale à l'heure du début", Toast.LENGTH_SHORT).show(); return;
                 }
 
                 addMeeting();

@@ -2,9 +2,9 @@ package com.example.mareu.service;
 
 import com.example.mareu.model.Meeting;
 
-import org.joda.time.DateTime;
-
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -52,14 +52,14 @@ public class DummyMeetingApiService implements MeetingApiService  {
     }
 
     @Override
-    public List<Meeting> getMeetingsByDate(DateTime mDate) {
-//        resetFilter();
-//        for (Meeting m : meetings) {
-//            if (m.getTimeStartMeeting().equals(mDate.toLocalDate())) {
-//                m.setMeetingInFilterList(true);
-//                listeR.add(m);
-//            }
-//        }
-//        return listeR;
-//    }
+    public List<Meeting> getMeetingsByDate(Date mDate) {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        resetFilter();
+        for (Meeting m : meetings) {
+            if (m.getDateDay().equals(sdf.format(mDate))) {
+               listeR.add(m);
+            }
+        }
+        return listeR;
+    }
 }

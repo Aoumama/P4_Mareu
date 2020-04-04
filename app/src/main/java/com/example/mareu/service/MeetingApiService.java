@@ -2,8 +2,7 @@ package com.example.mareu.service;
 
 import com.example.mareu.model.Meeting;
 
-import org.joda.time.DateTime;
-
+import java.util.Date;
 import java.util.List;
 
 public interface MeetingApiService {
@@ -33,7 +32,7 @@ public interface MeetingApiService {
      */
     List<Meeting> getRoomFilter(String room);
 
-    List<Meeting> getMeetingsByDate(DateTime mDate);
+    List<Meeting> getMeetingsByDate(Date mDate);
 
 
     void resetFilter();
