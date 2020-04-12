@@ -43,7 +43,6 @@ public class Meeting {
         this.colorMeeting = colorMeeting;
         this.dateDay = dateDay;
 
-        this.dateFilter = dateFilter;
     }
 
 
