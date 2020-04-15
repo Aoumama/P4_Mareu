@@ -35,8 +35,6 @@ public class MeetingActivity extends AppCompatActivity {
     private MeetingApiService mApiService;
     private MyMeetingRecyclerViewAdapter mMeetingAdapter;
     private RecyclerView mRecyclerView;
-    private List<Meeting> mMeeting;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,11 +55,9 @@ public class MeetingActivity extends AppCompatActivity {
 
     }
 
-
     private void updateList(List<Meeting> meetings){
         mMeetingAdapter.updateData(meetings);
     }
-
 
     @Override
     public void onResume() {

@@ -25,6 +25,7 @@ public interface MeetingApiService {
      */
     void deleteMeeting(Meeting meeting);
 
+
     List<String> generateRooms();
 
     /**
@@ -32,8 +33,10 @@ public interface MeetingApiService {
      */
     List<Meeting> getRoomFilter(String room);
 
+    /**
+     * Get all Meetings in order of Date
+     */
     List<Meeting> getMeetingsByDate(Date mDate);
-
 
     void resetFilter();
 

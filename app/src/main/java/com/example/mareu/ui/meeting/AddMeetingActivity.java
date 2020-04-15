@@ -73,7 +73,7 @@ public class AddMeetingActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         mApiService = DI.getMeetingApiService();
-        init();
+        setupTextListener();
 
         ImageView btnReturn = findViewById(R.id.activity_meeting_add_return);
         btnReturn.setOnClickListener(new View.OnClickListener() {
@@ -83,6 +83,15 @@ public class AddMeetingActivity extends AppCompatActivity {
             }
         });
 
+        setupClickOnValidationButton();
+        setupClickTimeStart();
+        setupClickTimeEnd();
+        setupClickDate();
+        setupClickSpinner();
+
+    }
+
+    private void setupClickSpinner(){
         // SPINNER
         mApiServiceRoom = DI.getNewInstanceApiService().generateRooms();
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, mApiServiceRoom);
@@ -112,7 +121,9 @@ public class AddMeetingActivity extends AppCompatActivity {
             public void onNothingSelected(AdapterView<?> parent) { }
         });
         // FIN SPINNER
+    }
 
+    private void setupClickTimeStart(){
         timestartMeeting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -131,6 +142,9 @@ public class AddMeetingActivity extends AppCompatActivity {
                 mTimePicker.show();
             }
         });
+    }
+
+    private void setupClickTimeEnd(){
         timeendMeeting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -149,28 +163,33 @@ public class AddMeetingActivity extends AppCompatActivity {
                 mTimePicker.show();
             }
         });
-        dateMeeting.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Calendar c = Calendar.getInstance();
-                int mYear = c.get(Calendar.YEAR);
-                int mMonth = c.get(Calendar.MONTH);
-                int mDay = c.get(Calendar.DAY_OF_MONTH);
-                DatePickerDialog dialogDate = new DatePickerDialog(AddMeetingActivity.this, new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                        month = month + 1;
-                        dateMeeting.setText(String.format("%02d", dayOfMonth)
-                                 + "/" + String.format("%02d", month) + "/" + year);
-                    }
-                }, mYear, mMonth, mDay);
-                dialogDate.getDatePicker().setMinDate(System.currentTimeMillis());
-                dialogDate.setTitle("Séléctionner le jour de la réunion");
-                dialogDate.show();
+    }
 
-            }
-        });
+    private void setupClickDate(){dateMeeting.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Calendar c = Calendar.getInstance();
+            int mYear = c.get(Calendar.YEAR);
+            int mMonth = c.get(Calendar.MONTH);
+            int mDay = c.get(Calendar.DAY_OF_MONTH);
+            DatePickerDialog dialogDate = new DatePickerDialog(AddMeetingActivity.this, new DatePickerDialog.OnDateSetListener() {
+                @Override
+                public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                    month = month + 1;
+                    dateMeeting.setText(String.format("%02d", dayOfMonth)
+                            + "/" + String.format("%02d", month) + "/" + year);
+                }
+            }, mYear, mMonth, mDay);
+            dialogDate.getDatePicker().setMinDate(System.currentTimeMillis());
+            dialogDate.setTitle("Séléctionner le jour de la réunion");
+            dialogDate.show();
 
+        }
+    });
+
+    }
+
+    private void setupClickOnValidationButton() {
         validateMeeting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -194,18 +213,12 @@ public class AddMeetingActivity extends AppCompatActivity {
                     Toast.makeText(v.getContext(), "Veillez renseigner l'heure de fin", Toast.LENGTH_SHORT).show(); return;
                 }
 
-                if(TextUtils.isEmpty(timestartMeeting.getText()) == TextUtils.isEmpty(timeendMeeting.getText())){
-                    Toast.makeText(v.getContext(), "L'heure de fin de la réunion ne peut être égale à l'heure du début", Toast.LENGTH_SHORT).show(); return;
-                }
-
                 addMeeting();
             }
         });
-
-        init();
     }
 
-    private void init(){
+    private void setupTextListener(){
         participantMeeting.getEditText().addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) { }

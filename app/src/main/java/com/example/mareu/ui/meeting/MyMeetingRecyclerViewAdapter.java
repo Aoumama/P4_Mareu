@@ -39,6 +39,7 @@ public class MyMeetingRecyclerViewAdapter extends RecyclerView.Adapter<MyMeeting
         return new ViewHolder(view);
     }
 
+
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         final Meeting mMeeting = meetings.get(position);
@@ -54,7 +55,7 @@ public class MyMeetingRecyclerViewAdapter extends RecyclerView.Adapter<MyMeeting
                         .setTitle(mMeeting.getSubjectMeeting() + " le "
                                 + mMeeting.getDateDay() + " de "
                                 + mMeeting.getTimeStartMeeting() +" à "
-                                + mMeeting.getTimeEndMeeting()+" "
+                                + mMeeting.getTimeEndMeeting()+" - "
                                 + mMeeting.getRoomMeeting())
                         .setMessage(mMeeting.getParticipantMeeting()).show();
             }

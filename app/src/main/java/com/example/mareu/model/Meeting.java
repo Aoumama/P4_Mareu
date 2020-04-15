@@ -1,7 +1,5 @@
 package com.example.mareu.model;
 
-import org.joda.time.DateTime;
-
 public class Meeting {
     /**
      * Model object representing a Meeting
@@ -15,10 +13,6 @@ public class Meeting {
     private String subjectMeeting;
     private String roomMeeting;
     private int colorMeeting;
-
-    private boolean roomInFilterList;
-
-    private DateTime dateFilter;
 
     /**
      * Constructor
@@ -44,8 +38,6 @@ public class Meeting {
         this.dateDay = dateDay;
 
     }
-
-
 
 
     public long getId(){ return id; }
@@ -83,6 +75,4 @@ public class Meeting {
     public int getColorMeeting() { return colorMeeting; }
     public void setColorMeeting(int colorMeeting) { this.colorMeeting = colorMeeting; }
 
-    public DateTime getDateFilter(){ return dateFilter; }
-    public void setDateFilter(DateTime dateFilter) { this.dateFilter = dateFilter; }
 }
