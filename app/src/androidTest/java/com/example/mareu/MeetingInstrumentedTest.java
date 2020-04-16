@@ -138,7 +138,7 @@ public class MeetingInstrumentedTest {
      * Check the filter of the date
      * */
     @Test
-    public void checkFilterDate() throws InterruptedException {
+    public void checkFilterDate() {
         Calendar calendar = Calendar.getInstance();
         Date date = calendar.getTime();
         List<Meeting> meetings = service.getMeetingsByDate(date);
@@ -146,7 +146,6 @@ public class MeetingInstrumentedTest {
         onView(withText(R.string.date)).perform(click());
         onView(withClassName(Matchers.equalTo(DatePicker.class.getName()))).perform(PickerActions.setDate(2020, 4,15));
         onView(withId(android.R.id.button1)).perform(click());
-
         onView(ViewMatchers.withId(R.id.activity_meeting_recyclerview_list))
               .check(matches(hasChildCount(meetings.size())));
 
@@ -164,10 +163,8 @@ public class MeetingInstrumentedTest {
         String timeEnd ="13H00";
         String date ="16/04/2020";
 
-        Intents.init();
+        List<Meeting> meetings = service.getMeeting();
         onView(withId(R.id.activity_meeting_add)).perform(click());
-        intended(hasComponent(AddMeetingActivity.class.getName()));
-
         onView(withId(R.id.activity_meeting_add_edtmail)).perform(replaceText(mail));
         onView(withId(R.id.activity_meeting_add_edtsubject)).perform(replaceText(subject));
         onView(withId(R.id.activity_meeting_add_spinnerromm)).perform(click());
@@ -175,10 +172,9 @@ public class MeetingInstrumentedTest {
         onView(withId(R.id.activity_meeting_add_day)).perform(replaceText(date));
         onView(withId(R.id.activity_meeting_add_btntimestart)).perform(replaceText(timeStart));
         onView(withId(R.id.activity_meeting_add_btntimeend)).perform(replaceText(timeEnd));
-
         onView(withId(R.id.activity_meeting_add_btnvalidate)).perform(click());
         onView(ViewMatchers.withId(R.id.activity_meeting_recyclerview_list))
-                .check(withItemCount(ITEMS_COUNT + 1));
+                .check(matches(hasChildCount(meetings.size()))).check(matches(isDisplayed()));
 
     }
 

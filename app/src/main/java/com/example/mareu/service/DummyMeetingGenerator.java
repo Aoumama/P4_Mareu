@@ -15,9 +15,8 @@ public abstract class DummyMeetingGenerator {
             new Meeting(2, "paul@lamzone.com, laura@lamzone.com, clara@lamzone.com ", "12H30", "13H00", "05/04/2020", "Réunion C", "Mario", R.color.colorRed),
             new Meeting(3, "paul@lamzone.com, laura@lamzone.com, clara@lamzone.com ", "12H30", "13H00", "01/04/2020", "Réunion A", "Luigi", R.color.colorPink),
             new Meeting(4, "paul@lamzone.com, laura@lamzone.com, clara@lamzone.com ", "12H30", "13H00", "01/04/2020", "Réunion D", "Mario", R.color.colorRed),
-            new Meeting(5, "paul@lamzone.com, laura@lamzone.com, clara@lamzone.com ", "12H30", "13H00", "31/03/2020", "Réunion Z", "Luigi", R.color.colorOrange),
-            new Meeting(5, "paul@lamzone.com, laura@lamzone.com, clara@lamzone.com ", "12H30", "13H00", "15/04/2020", "Réunion Z", "Luigi", R.color.colorOrange),
-            new Meeting(6, "paul@lamzone.com, laura@lamzone.com, clara@lamzone.com ", "12H30", "13H00", "01/04/2020", "Réunion S", "Luigi", R.color.colorPink));
+            new Meeting(6, "paul@lamzone.com, laura@lamzone.com, clara@lamzone.com ", "12H30", "13H00", "15/04/2020", "Réunion Z", "Luigi", R.color.colorOrange),
+            new Meeting(7, "paul@lamzone.com, laura@lamzone.com, clara@lamzone.com ", "12H30", "13H00", "01/04/2020", "Réunion S", "Luigi", R.color.colorPink));
 
     static List<Meeting>generateMeeting(){ return new ArrayList<>(DUMMY_MEETING); }
 
